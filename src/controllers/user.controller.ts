@@ -58,7 +58,7 @@ export class UserController {
         });
       } else {
         return res.status(422).json({
-          sttus: false,
+          status: false,
           message: `email ${email} already exist`,
           data: null,
         });
