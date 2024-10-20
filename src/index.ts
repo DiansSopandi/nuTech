@@ -1,6 +1,7 @@
+import { Pool }  from "pg";
 import express from "express";
 import { specs, swaggerUi  } from "../swagger"
-// import 'reflect-metadata';
+import 'reflect-metadata';
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 // import dotEnv from "dotenv";
@@ -8,11 +9,19 @@ import cors from "cors";
 import userRoutes from "./routes/user.routes.";
 import { AppDataSource } from "./utils/dataSource";
 
-// import dashboardRoutes from './routes/dashboardRoutes';
-
 /* Configuration */
 
 // dotEnv.config();
+
+// const postgresConfig = {
+// 	user: process.env.DB_USERNAME,
+// 	password: process.env.DB_PASSWORD,
+// 	host: process.env.DB_HOST,
+// 	port: Number(process.env.DB_PORT),
+// 	database: process.env.DB_NAME,
+// };
+
+// const pool = new Pool(postgresConfig);
 const app = express(); 
 
 app.use(cors());
@@ -50,6 +59,23 @@ const main = async () => {
         .catch((err) => {
             console.error('Error connecting to PostgreSQL database', err);
         });        
+
+        // pool.connect((err)=>{
+        //     if(err) throw err;
+        //     console.log('Connect to PostgreSQL Succesfully');            
+        //     const port = Number(process.env.PORT) || 3007;
+        //     app.listen(port, () => {
+        //         console.log(`Server backend NuTech Apps running on port ${port}`);    
+        //     });            
+
+        //     app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
+        //     app.get('/api-docs.json', (req, res) => {
+        //         res.setHeader('Content-Type', 'application/json')
+        //         res.send(specs)
+        //       });
+            
+        //     app.use('/users',userRoutes);            
+        // });
 }
 
 /** Server */
