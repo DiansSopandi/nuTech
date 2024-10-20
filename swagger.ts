@@ -13,7 +13,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3007/',
+        url: 'https://nutech-production-9671.up.railway.app/',
       }
     ],
   },
