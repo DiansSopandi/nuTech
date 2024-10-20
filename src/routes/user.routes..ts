@@ -28,16 +28,16 @@ const router = Router();
  *            properties:
  *              firstname:
  *                type: string
- *                default: john
+ *                default: guardians
  *              lastname:
  *                type: string
- *                default: doe
+ *                default: asguard
  *              email:
  *                type: string
- *                default: johndoe@mail.com
+ *                default: guardians.asguard@mail.com
  *              password:
  *                type: string
- *                default: johnDoe20!@
+ *                default: Pass123!@
  *     responses:
  *      201:
  *        description: Created
