@@ -69,10 +69,10 @@ router.post('/register', validate(registerSchema), UserController.register);
  *            properties:
  *              email:
  *                type: string
- *                default: johndoe@mail.com
+ *                default: guardians.asguard@mail.com
  *              password:
  *                type: string
- *                default: johnDoe20!@
+ *                default: Pass123!@
  *     responses:
  *      200:
  *        description: OK
