@@ -30,7 +30,7 @@ const main = async () => {
         await AppDataSource.initialize()
         .then(() => {
             console.log('Connected to PostgreSQL database');
-            const port = Number(process.env.PORT) || 3007;
+            const port = Number(process.env.PORT) || 3007; 
             app.listen(port, () => {
                 console.log(`Server backend NuTech Apps running on port ${port}`);    
             });            

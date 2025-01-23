@@ -2,3 +2,4 @@
 node_modules/
 tsconfigx.json
 .env
+.envOld
