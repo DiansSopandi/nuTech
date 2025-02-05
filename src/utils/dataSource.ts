@@ -1,9 +1,10 @@
 import dotenv from 'dotenv';
-dotenv.config();
-
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
+dotenv.config();
+
+const isVercel = process.env.VERCEL === "1"; // Detect Vercel environment
 
 const postgresConfig = {
    // railway
@@ -26,7 +27,8 @@ export const AppDataSource = new DataSource({
    type: 'postgres',
    synchronize: true,
    logging: false,
-   ssl: { rejectUnauthorized: false }, // Ensure SSL is enabled
+   // ssl: { rejectUnauthorized: false }, // Ensure SSL is enabled
+   ssl: isVercel ? { rejectUnauthorized: false } : false, // Important for Vercel DB
    entities: ['src/entities/**/*.entity.ts'],
    migrations: ['src/migrations/**/*.ts'],
    subscribers: ['src/subscribers/**/*.ts'],

@@ -9,6 +9,7 @@
        "forceConsistentCasingInFileNames": true,
        "strict": true,
        "strictPropertyInitialization": false,
+       "allowSyntheticDefaultImports": true,
        "skipLibCheck": true,
        "outDir": "./dist",
        "rootDir": "."
