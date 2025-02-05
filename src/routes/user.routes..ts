@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { AppDataSource } from "../utils/dataSource";
 import { UserController } from "../controllers/user.controller";
 import { validate } from "../middlewares/validate";
@@ -108,7 +108,7 @@ router.post('/login', validate(loginSchema), UserController.login);
  *              type: object
  *             nullable: true
  */
-router.get("/", async (req, res) => {
+router.get("/", async (req : Request, res : Response) => {
   try {
     const result = await AppDataSource.query("SELECT * FROM users");
 

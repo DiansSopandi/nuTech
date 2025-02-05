@@ -14,7 +14,8 @@ const options = {
     servers: [
       {
         // url: 'https://nutech-production-9671.up.railway.app/',
-        url: 'https://backend-nodejs-eta.vercel.app/',
+        url: 'https://backend-nodejs-eta.vercel.app/',        
+        // url: 'http://localhost:3007/',        
       }
     ],
   },

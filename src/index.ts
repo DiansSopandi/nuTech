@@ -1,4 +1,4 @@
-import express from "express";
+import express ,{ Request, Response, NextFunction } from "express";
 import { specs, swaggerUi  } from "../swagger"
 import 'reflect-metadata';
 import bodyParser from "body-parser";
@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 /** Routes */
-app.get('/', (req,res) => {
+app.get('/', (req : Request,res: Response) => {
     res.send("root route");
 });
 
@@ -36,7 +36,7 @@ const main = async () => {
             });            
 
             app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
-            app.get('/api-docs.json', (req, res) => {
+            app.get('/api-docs.json', (req : Request, res : Response) => {
                 res.setHeader('Content-Type', 'application/json')
                 res.send(specs)
               });
