@@ -1,4 +1,4 @@
-import express ,{ Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { specs, swaggerUi  } from "../swagger"
 import 'reflect-metadata';
 import bodyParser from "body-parser";
