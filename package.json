@@ -5,10 +5,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && npx tsc",
+    "ts.check": "tsc --project tsconfig.json",
     "start": "npm run build && node dist/src/index.js",
     "dev": "npm run build && concurrently \"npx tsc -w\" \"nodemon --exec ts-node src/index.ts\"",
-    "vercel-build": "pnpm install --force && pnpm build"
+    "add-build": "git add dist",
+    "vercel-build": "pnpm install && pnpm build"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -44,6 +51,7 @@
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
     "nodemon": "^3.1.7",
+    "pre-commit": "^1.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   }
