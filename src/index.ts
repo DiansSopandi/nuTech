@@ -41,22 +41,6 @@ const initializeDatabase = async () => {
 //     next();
 // });
 
-// /** 🔹 Start Server */
-const port = Number(process.env.PORT) || 3000;
-
-if( require.main === module ){
-    app.listen(port, () => {
-      console.log(`🚀 Server running on port ${port}`);
-    }).on("error",(err: any)=>{
-        if (err.code === "EADDRINUSE") {
-            console.error(`⚠️ Port ${port} is already in use. Choose another port.`);
-            process.exit(1);
-          } else {
-            console.error(err);
-          }    
-    });
-}
-
 const main = async () => {
     try {        
         await AppDataSource.initialize()
@@ -132,5 +116,21 @@ app.get('/api-docs.json', (req : Request, res : Response) => {
   });
 
 app.use('/users',dbInitMiddleware,  userRoutes);
+
+// /** 🔹 Start Server */
+const port = Number(process.env.PORT) || 3000;
+
+if( require.main === module ){
+    app.listen(port, () => {
+      console.log(`🚀 Server running on port ${port}`);
+    }).on("error",(err: any)=>{
+        if (err.code === "EADDRINUSE") {
+            console.error(`⚠️ Port ${port} is already in use. Choose another port.`);
+            process.exit(1);
+          } else {
+            console.error(err);
+          }    
+    });
+}
 
 export default app;
