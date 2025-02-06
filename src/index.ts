@@ -92,28 +92,28 @@ app.get('/', (req : Request,res: Response) => {
     res.send("root route");
 });
 
-// app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
-app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
-    console.log("📄 Swagger Docs Requested:", req.originalUrl);
-    next();    
-},swaggerUi.serve,swaggerUi.setup(specs, { 
-    explorer: true,
-    customSiteTitle: "My API Docs",
-    customfavIcon: "/favicon.ico",
-    customCss: ".swagger-ui .topbar { display: none }"
-  }));
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
+// app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
+//     console.log("📄 Swagger Docs Requested:", req.originalUrl);
+//     next();    
+// },swaggerUi.serve,swaggerUi.setup(specs, { 
+//     explorer: true,
+//     customSiteTitle: "My API Docs",
+//     customfavIcon: "/favicon.ico",
+//     customCss: ".swagger-ui .topbar { display: none }"
+//   }));
 
-
-// app.get('/api-docs.json', (req : Request, res : Response) => {
-//    res.setHeader('Content-Type', 'application/json')
-//    res.send(specs)
-// });
 
 app.get('/api-docs.json', (req : Request, res : Response) => {
-    console.log("📄 Sending Swagger JSON");
-    res.setHeader('Content-Type', 'application/json')
-    res.send(specs)
-  });
+   res.setHeader('Content-Type', 'application/json')
+   res.send(specs)
+});
+
+// app.get('/api-docs.json', (req : Request, res : Response) => {
+//     console.log("📄 Sending Swagger JSON");
+//     res.setHeader('Content-Type', 'application/json')
+//     res.send(specs)
+//   });
 
 app.use('/users',dbInitMiddleware,  userRoutes);
 
@@ -121,6 +121,7 @@ app.use('/users',dbInitMiddleware,  userRoutes);
 const port = Number(process.env.PORT) || 3000;
 
 if( require.main === module ){
+    initializeDatabase();
     app.listen(port, () => {
       console.log(`🚀 Server running on port ${port}`);
     }).on("error",(err: any)=>{
