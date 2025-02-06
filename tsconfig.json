@@ -20,7 +20,7 @@
        "types": ["node", "express"], 
        "skipLibCheck": true,
        "outDir": "./dist",
-       "rootDir": ".",
+       "rootDir": "./src",
        "baseUrl": ".",
       //  "paths": {
       //    "*": [
