@@ -13,3 +13,4 @@
 //     @Column('decimal', { precision: 10, scale: 2 })
 //     saldoAkhir: number;
 // }
+//# sourceMappingURL=transaction.entity.js.map

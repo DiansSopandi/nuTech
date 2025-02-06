@@ -45,3 +45,4 @@ exports.loginSchema = (0, zod_1.object)({
         }).min(8, 'Password must be more than 8 characters'),
     }),
 });
+//# sourceMappingURL=user.schema.js.map

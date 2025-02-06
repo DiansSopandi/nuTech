@@ -22,3 +22,4 @@ const validate = (schema) => (req, res, next) => {
     }
 };
 exports.validate = validate;
+//# sourceMappingURL=validate.js.map

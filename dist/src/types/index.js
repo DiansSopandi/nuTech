@@ -17,3 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./config"), exports);
 // export * from './controller';
 __exportStar(require("./pageLimit"), exports);
+//# sourceMappingURL=index.js.map

@@ -32,3 +32,4 @@ exports.swaggerUi = swagger_ui_express_1.default;
 //   specs,
 //   swaggerUi,
 // };
+//# sourceMappingURL=swagger.js.map

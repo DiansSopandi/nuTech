@@ -29,3 +29,4 @@
 // export interface TypedResponse<ResBody> extends Response {
 //    json: Send<ResBody, this>;
 // }
+//# sourceMappingURL=controller.js.map

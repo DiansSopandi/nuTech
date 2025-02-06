@@ -8,3 +8,4 @@ const config_1 = __importDefault(require("config"));
 function getConfig(setting) {
     return config_1.default.get(setting);
 }
+//# sourceMappingURL=config.js.map
