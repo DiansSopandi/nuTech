@@ -88,9 +88,11 @@ const main = async () => {
 // main();
 
 /** Routes */
-app.get('/', (req : Request,res: Response) => {
-    res.send("root route");
-});
+// app.get('/', (req : Request,res: Response) => {
+//     res.send("root route");
+// });
+
+app.get('/', dbInitMiddleware, userRoutes);
 
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 // app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
