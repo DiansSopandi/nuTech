@@ -7,20 +7,12 @@ import dotEnv from "dotenv";
 import cors from "cors";
 import userRoutes from "./routes/user.routes";
 import { AppDataSource } from "./utils/dataSource";
+import { dbInitMiddleware } from "./middlewares/dbMiddleware";
+
 
 /* Configuration */
 
 dotEnv.config();
-
-/** 🔥 Initialize Database */
-// AppDataSource.initialize()
-//   .then(() => {
-//     console.log("✅ Connected to PostgreSQL database");
-//   })
-//   .catch((err) => {
-//     console.error("❌ Error connecting to PostgreSQL database:", err);
-//     process.exit(1); // Exit if DB fails
-//   });
 
 const app = express(); 
 
@@ -30,15 +22,46 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-/** Routes */
-app.get('/', (req : Request,res: Response) => {
-    res.send("root route");
-});
+/** 🔥 Initialize Database Before Handling Requests */
+const initializeDatabase = async () => {
+    try {
+        if (!AppDataSource.isInitialized) {
+            await AppDataSource.initialize();
+            console.log("✅ Database connected successfully");
+        }
+    } catch (error) {
+        console.error("❌ Database connection failed:", error);
+        process.exit(1); // Stop the server if DB fails
+    }
+};
+
+/** Middleware to Ensure Database is Initialized */
+// app.use(async (req: Request, res: Response, next: NextFunction) => {
+//     await initializeDatabase();
+//     next();
+// });
+
+// /** 🔹 Start Server */
+const port = Number(process.env.PORT) || 3000;
+
+if( require.main === module ){
+    app.listen(port, () => {
+      console.log(`🚀 Server running on port ${port}`);
+    }).on("error",(err: any)=>{
+        if (err.code === "EADDRINUSE") {
+            console.error(`⚠️ Port ${port} is already in use. Choose another port.`);
+            process.exit(1);
+          } else {
+            console.error(err);
+          }    
+    });
+}
 
 const main = async () => {
+    try {        
         await AppDataSource.initialize()
         .then(() => {
-            console.log('Connected to PostgreSQL database');
+            console.log('Connected to PostgreSQL database on main function');
             // const port = Number(process.env.PORT) || 3007; 
             // app.listen(port, () => {
             //     console.log(`Server backend NuTech Apps running on port ${port}`);    
@@ -66,16 +89,24 @@ const main = async () => {
             //     res.send(specs)
             //   });
             
-            app.use('/users',userRoutes);            
+            // app.use('/users',userRoutes);            
 
         })
         .catch((err) => {
             console.error('Error connecting to PostgreSQL database', err);
         });        
+    } catch (error) {
+        console.error('Error connecting to PostgreSQL database', error);
+    }
 }
 
 /** Server */
-main();
+// main();
+
+/** Routes */
+app.get('/', (req : Request,res: Response) => {
+    res.send("root route");
+});
 
 app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
     console.log("📄 Swagger Docs Requested:", req.originalUrl);
@@ -93,22 +124,6 @@ app.get('/api-docs.json', (req : Request, res : Response) => {
     res.send(specs)
   });
 
-// app.use('/users',userRoutes);
-
-// /** 🔹 Start Server */
-// const port = Number(process.env.PORT) || 3000;
-
-// if( require.main === module ){
-//     app.listen(port, () => {
-//       console.log(`🚀 Server running on port ${port}`);
-//     }).on("error",(err: any)=>{
-//         if (err.code === "EADDRINUSE") {
-//             console.error(`⚠️ Port ${port} is already in use. Choose another port.`);
-//             process.exit(1);
-//           } else {
-//             console.error(err);
-//           }    
-//     });
-// }
+app.use('/users',dbInitMiddleware,  userRoutes);
 
 export default app;

@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-       "target": "ES2020",
-      //  "target": "ES2016",
+      //  "target": "ES2020",
+       "target": "ES6",
       //  "target": "ESNext",
        "module": "commonjs",
       //  "module": "NodeNext",
        "moduleResolution": "node",
       //  "moduleResolution": "nodenext",
+       "noImplicitAny": true,
        "resolveJsonModule": true,                        /* Enable importing .json files. */
        "emitDecoratorMetadata": true,
        "experimentalDecorators": true,
@@ -15,9 +16,17 @@
        "strict": true,
        "strictPropertyInitialization": false,
        "allowSyntheticDefaultImports": true,
+       "types": ["node", "express"], 
        "skipLibCheck": true,
        "outDir": "./dist",
-       "rootDir": "."
+       "rootDir": ".",
+       "baseUrl": ".",
+      //  "paths": {
+      //    "*": [
+      //      "node_modules/*",
+      //      "src/types/*"
+      //    ]
+      //  }       
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]    

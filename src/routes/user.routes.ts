@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 import { AppDataSource } from "../utils/dataSource";
 import { UserController } from "../controllers/user.controller";
 import { validate } from "../middlewares/validate";
@@ -147,5 +147,6 @@ router.get("/", async (req : Request, res : Response) => {
  *             nullable: true
  */
 router.get("/profile", UserController.profile );
+
 
 export default router;
