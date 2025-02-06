@@ -29,6 +29,6 @@
       //    ]
       //  }       
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", "src/swagger.ts"],
     "exclude": ["node_modules"]    
  }
