@@ -1,4 +1,4 @@
- {
+{
     "origin": "http://localhost:3002/api-docs",
     "accessTokenExpiresIn": 3600,
     "refreshTokenExpiresIn": 3600,
