@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const dataSource_1 = require("../utils/dataSource");
@@ -106,9 +115,9 @@ router.post('/login', (0, validate_1.validate)(user_schema_1.loginSchema), user_
  *              type: object
  *             nullable: true
  */
-router.get("/", async (req, res) => {
+router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = await dataSource_1.AppDataSource.query("SELECT * FROM users");
+        const result = yield dataSource_1.AppDataSource.query("SELECT * FROM users");
         res.json({
             success: true,
             message: "Fetched all users",
@@ -119,7 +128,7 @@ router.get("/", async (req, res) => {
         console.error("Error executing query", err);
         res.status(500).json({ success: false, message: "Error fetching users" });
     }
-});
+}));
 /**
  * @openapi
  * /users/profile:
