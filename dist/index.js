@@ -90,10 +90,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 /** Server */
 // main();
 /** Routes */
-// app.get('/', (req : Request,res: Response) => {
-//     res.send("root route");
-// });
-app.get('/', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
+app.get('/', (req, res) => {
+    res.send("initialize root");
+});
+// app.get('/', dbInitMiddleware, userRoutes);
 app.use('/api-docs', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs));
 // app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
 //     console.log("📄 Swagger Docs Requested:", req.originalUrl);
