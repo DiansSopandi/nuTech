@@ -89,7 +89,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 // main();
 /** Routes */
 app.get('/', (req, res) => {
-    res.send("initialize root");
+    console.log('initialized root route fetched...');
+    res.send("initialize root route");
     // res.redirect("/api-docs");
 });
 // app.use('/users',dbInitMiddleware,  userRoutes);

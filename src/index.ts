@@ -91,7 +91,8 @@ const main = async () => {
 
 /** Routes */
 app.get('/', (req : Request,res: Response) => {
-    res.send("initialize root");
+    console.log('initialized root route fetched...');    
+    res.send("initialize root route");
     // res.redirect("/api-docs");
 });
 
