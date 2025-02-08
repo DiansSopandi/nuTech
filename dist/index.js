@@ -19,7 +19,6 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
-const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const dataSource_1 = require("./utils/dataSource");
 const dbMiddleware_1 = require("./middlewares/dbMiddleware");
 /* Configuration */
@@ -132,7 +131,14 @@ if (require.main === module) {
         }
     });
 }
-app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
+// app.use('/users',dbInitMiddleware,  userRoutes);
+app.use('/users', dbMiddleware_1.dbInitMiddleware, (req, res) => {
+    res.json({
+        success: true,
+        message: 'fetch succeded',
+        data: []
+    });
+});
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
 app.use('/', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs, {
     explorer: true,
