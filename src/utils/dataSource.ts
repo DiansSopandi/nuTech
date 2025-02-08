@@ -27,8 +27,8 @@ export const AppDataSource = new DataSource({
    type: 'postgres',
    synchronize: true,
    logging: false,
-   // ssl: { rejectUnauthorized: false }, // Ensure SSL is enabled
-   ssl: isVercel ? { rejectUnauthorized: false } : false, // Important for Vercel DB
+   ssl: { rejectUnauthorized: false }, // Ensure SSL is enabled
+   // ssl: isVercel ? { rejectUnauthorized: false } : false, // Important for Vercel DB
    entities: ['src/entities/**/*.entity.ts'],
    migrations: ['src/migrations/**/*.ts'],
    subscribers: ['src/subscribers/**/*.ts'],
