@@ -141,16 +141,30 @@ if( require.main === module ){
 
 app.use('/users',dbInitMiddleware,  userRoutes);
 
+app.get("/api-docs/", (req, res) => {
+    res.redirect("/");
+  });
+
+app.use(
+    "/swagger-assets",
+    express.static(path.join(__dirname, "node_modules", "swagger-ui-dist"))
+  );
+
+// app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
+//     customCssUrl:
+//       "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
+//   }));
+
 app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
-    customCssUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
+    customCssUrl: "/swagger-assets/swagger-ui.css",
+    customJs: ["/swagger-assets/swagger-ui-bundle.js", "/swagger-assets/swagger-ui-standalone-preset.js"],
   }));
 
 /** Serve Swagger UI assets explicitly */
-app.use(
-    "/api-docs",
-    express.static(path.join(__dirname, "..", "node_modules", "swagger-ui-dist"))
-  );  
+// app.use(
+//     "/api-docs",
+//     express.static(path.join(__dirname, "..", "node_modules", "swagger-ui-dist"))
+//   );  
 app.get('/api-docs.json', (req : Request, res : Response) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(specs)
