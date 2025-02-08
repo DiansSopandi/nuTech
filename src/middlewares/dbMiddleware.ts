@@ -4,6 +4,7 @@ import { AppDataSource } from "../utils/dataSource";
 /** Middleware to initialize the database before handling routes */
 export const dbInitMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        console.log("✅ AppDataSource pre-initialized (Middleware)");
         if (!AppDataSource.isInitialized) {
             console.log("✅ Database pre-connected (Middleware)");
             await AppDataSource.initialize();
