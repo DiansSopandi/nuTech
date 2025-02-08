@@ -93,11 +93,11 @@ const main = async () => {
     // res.redirect("/api-docs");
 // });
 
-app.use('/users',dbInitMiddleware,  userRoutes);
+// app.use('/users',dbInitMiddleware,  userRoutes);
 
 // app.get('/', dbInitMiddleware, userRoutes);
 
-app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
+// app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
 // app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 // app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
 //     console.log("📄 Swagger Docs Requested:", req.originalUrl);
@@ -110,10 +110,10 @@ app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
 //   }));
 
 
-app.get('/api-docs.json', (req : Request, res : Response) => {
-   res.setHeader('Content-Type', 'application/json')
-   res.send(specs)
-});
+// app.get('/api-docs.json', (req : Request, res : Response) => {
+//    res.setHeader('Content-Type', 'application/json')
+//    res.send(specs)
+// });
 
 // app.get('/api-docs.json', (req : Request, res : Response) => {
 //     console.log("📄 Sending Swagger JSON");
@@ -137,5 +137,13 @@ if( require.main === module ){
           }    
     });
 }
+
+app.use('/users',dbInitMiddleware,  userRoutes);
+
+app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
+app.get('/api-docs.json', (req : Request, res : Response) => {
+    res.setHeader('Content-Type', 'application/json')
+    res.send(specs)
+ });
 
 export default app;
