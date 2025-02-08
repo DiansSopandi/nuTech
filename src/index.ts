@@ -140,7 +140,10 @@ if( require.main === module ){
 
 app.use('/users',dbInitMiddleware,  userRoutes);
 
-app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
+app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
+    customCssUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
+  }));
 app.get('/api-docs.json', (req : Request, res : Response) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(specs)
