@@ -90,12 +90,14 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 /** Server */
 // main();
 /** Routes */
-app.get('/', (req, res) => {
-    // res.send("initialize root");
-    res.redirect("/api-docs");
-});
+// app.get('/', (req : Request,res: Response) => {
+// res.send("initialize root");
+// res.redirect("/api-docs");
+// });
+app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
 // app.get('/', dbInitMiddleware, userRoutes);
-app.use('/api-docs', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs));
+app.use('/', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs));
+// app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 // app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
 //     console.log("📄 Swagger Docs Requested:", req.originalUrl);
 //     next();    
@@ -114,7 +116,6 @@ app.get('/api-docs.json', (req, res) => {
 //     res.setHeader('Content-Type', 'application/json')
 //     res.send(specs)
 //   });
-app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
 // /** 🔹 Start Server */
 const port = Number(process.env.PORT) || 3000;
 if (require.main === module) {

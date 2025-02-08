@@ -88,14 +88,17 @@ const main = async () => {
 // main();
 
 /** Routes */
-app.get('/', (req : Request,res: Response) => {
+// app.get('/', (req : Request,res: Response) => {
     // res.send("initialize root");
-    res.redirect("/api-docs");
-});
+    // res.redirect("/api-docs");
+// });
+
+app.use('/users',dbInitMiddleware,  userRoutes);
 
 // app.get('/', dbInitMiddleware, userRoutes);
 
-app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
+app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
+// app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 // app.use('/api-docs',( req: Request, res: Response, next: NextFunction)=>{
 //     console.log("📄 Swagger Docs Requested:", req.originalUrl);
 //     next();    
@@ -117,8 +120,6 @@ app.get('/api-docs.json', (req : Request, res : Response) => {
 //     res.setHeader('Content-Type', 'application/json')
 //     res.send(specs)
 //   });
-
-app.use('/users',dbInitMiddleware,  userRoutes);
 
 // /** 🔹 Start Server */
 const port = Number(process.env.PORT) || 3000;
