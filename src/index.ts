@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response } from "express";
 import { specs, swaggerUi  } from "./swagger"
 import 'reflect-metadata';
 import bodyParser from "body-parser";
@@ -8,6 +8,7 @@ import cors from "cors";
 import userRoutes from "./routes/user.routes";
 import { AppDataSource } from "./utils/dataSource";
 import { dbInitMiddleware } from "./middlewares/dbMiddleware";
+import path from "path";
 
 
 /* Configuration */
@@ -144,6 +145,12 @@ app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
     customCssUrl:
       "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
   }));
+
+/** Serve Swagger UI assets explicitly */
+app.use(
+    "/api-docs",
+    express.static(path.join(__dirname, "..", "node_modules", "swagger-ui-dist"))
+  );  
 app.get('/api-docs.json', (req : Request, res : Response) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(specs)

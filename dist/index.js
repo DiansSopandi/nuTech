@@ -22,6 +22,7 @@ const cors_1 = __importDefault(require("cors"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const dataSource_1 = require("./utils/dataSource");
 const dbMiddleware_1 = require("./middlewares/dbMiddleware");
+const path_1 = __importDefault(require("path"));
 /* Configuration */
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -136,6 +137,8 @@ app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
 app.use('/', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs, {
     customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
 }));
+/** Serve Swagger UI assets explicitly */
+app.use("/api-docs", express_1.default.static(path_1.default.join(__dirname, "..", "node_modules", "swagger-ui-dist")));
 app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swagger_1.specs);
