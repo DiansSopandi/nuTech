@@ -143,10 +143,11 @@ if( require.main === module ){
 app.use('/users',dbInitMiddleware,  userRoutes);
 
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
-app.use('/',swaggerUi.serve,async (_req: Request, res: Response) => {
-    res.send(await swaggerUi.generateHTML(specs));
-  });
-app.get("/api-docs/", (req, res) => {
+app.use('/',swaggerUi.serve,swaggerUi.setup(specs, {
+    explorer: true,
+    customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
+  }));
+app.get("/api-docs/", (req: Request, res: Response) => {
     res.redirect("/");
   });
 

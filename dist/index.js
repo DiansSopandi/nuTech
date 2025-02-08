@@ -134,8 +134,9 @@ if (require.main === module) {
 }
 app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
-app.use('/', swagger_1.swaggerUi.serve, (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(yield swagger_1.swaggerUi.generateHTML(swagger_1.specs));
+app.use('/', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs, {
+    explorer: true,
+    customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
 }));
 app.get("/api-docs/", (req, res) => {
     res.redirect("/");
