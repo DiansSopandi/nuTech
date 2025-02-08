@@ -5,6 +5,7 @@ import { AppDataSource } from "../utils/dataSource";
 export const dbInitMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (!AppDataSource.isInitialized) {
+            console.log("✅ Database pre-connected (Middleware)");
             await AppDataSource.initialize();
             console.log("✅ Database connected successfully (Middleware)");
         }

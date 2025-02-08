@@ -110,6 +110,7 @@ router.post('/login', validate(loginSchema), UserController.login);
  */
 router.get("/", async (req : Request, res : Response) => {
   try {
+    console.log('users route fetched...');
     const result = await AppDataSource.query("SELECT * FROM users");
 
     res.json({

@@ -117,6 +117,7 @@ router.post('/login', (0, validate_1.validate)(user_schema_1.loginSchema), user_
  */
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('users route fetched...');
         const result = yield dataSource_1.AppDataSource.query("SELECT * FROM users");
         res.json({
             success: true,

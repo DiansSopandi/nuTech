@@ -141,17 +141,17 @@ if( require.main === module ){
     });
 }
 
-// app.use('/users',dbInitMiddleware,  userRoutes);
+app.use('/users',dbInitMiddleware,  userRoutes);
 // app.use('/users',dbInitMiddleware,  (req: Request, res: Response) => {
-app.use('/users',  (req: Request, res: Response) => {
-    console.log('users route fetched...');
+// app.use('/users',  (req: Request, res: Response) => {
+//     console.log('users route fetched...');
     
-    res.json({
-        success: true,
-        message: 'fetch succeded',
-        data: []
-    });
-});
+//     res.json({
+//         success: true,
+//         message: 'fetch succeded',
+//         data: []
+//     });
+// });
 
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs, {

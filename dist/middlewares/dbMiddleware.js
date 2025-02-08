@@ -15,6 +15,7 @@ const dataSource_1 = require("../utils/dataSource");
 const dbInitMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!dataSource_1.AppDataSource.isInitialized) {
+            console.log("✅ Database pre-connected (Middleware)");
             yield dataSource_1.AppDataSource.initialize();
             console.log("✅ Database connected successfully (Middleware)");
         }
