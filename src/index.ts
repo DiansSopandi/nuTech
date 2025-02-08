@@ -90,10 +90,10 @@ const main = async () => {
 // main();
 
 /** Routes */
-// app.get('/', (req : Request,res: Response) => {
-    // res.send("initialize root");
+app.get('/', (req : Request,res: Response) => {
+    res.send("initialize root");
     // res.redirect("/api-docs");
-// });
+});
 
 // app.use('/users',dbInitMiddleware,  userRoutes);
 
@@ -141,7 +141,10 @@ if( require.main === module ){
 }
 
 // app.use('/users',dbInitMiddleware,  userRoutes);
-app.use('/users',dbInitMiddleware,  (req: Request, res: Response) => {
+// app.use('/users',dbInitMiddleware,  (req: Request, res: Response) => {
+app.use('/users',  (req: Request, res: Response) => {
+    console.log('users route fetched...');
+    
     res.json({
         success: true,
         message: 'fetch succeded',
@@ -150,13 +153,13 @@ app.use('/users',dbInitMiddleware,  (req: Request, res: Response) => {
 });
 
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
-app.use('/',swaggerUi.serve,swaggerUi.setup(specs, {
-    explorer: true,
-    customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
-  }));
-app.get("/api-docs/", (req: Request, res: Response) => {
-    res.redirect("/");
-  });
+// app.use('/',swaggerUi.serve,swaggerUi.setup(specs, {
+//     explorer: true,
+//     customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
+//   }));
+// app.get("/api-docs/", (req: Request, res: Response) => {
+//     res.redirect("/");
+// });
 
 // app.use(
 //     "/swagger-assets",
@@ -178,6 +181,7 @@ app.get("/api-docs/", (req: Request, res: Response) => {
 //     "/api-docs",
 //     express.static(path.join(__dirname, "..", "node_modules", "swagger-ui-dist"))
 //   );  
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 app.get('/api-docs.json', (req : Request, res : Response) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(specs)

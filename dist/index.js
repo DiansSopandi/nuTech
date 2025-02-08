@@ -20,7 +20,6 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const dataSource_1 = require("./utils/dataSource");
-const dbMiddleware_1 = require("./middlewares/dbMiddleware");
 /* Configuration */
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -89,10 +88,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 /** Server */
 // main();
 /** Routes */
-// app.get('/', (req : Request,res: Response) => {
-// res.send("initialize root");
-// res.redirect("/api-docs");
-// });
+app.get('/', (req, res) => {
+    res.send("initialize root");
+    // res.redirect("/api-docs");
+});
 // app.use('/users',dbInitMiddleware,  userRoutes);
 // app.get('/', dbInitMiddleware, userRoutes);
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
@@ -132,7 +131,9 @@ if (require.main === module) {
     });
 }
 // app.use('/users',dbInitMiddleware,  userRoutes);
-app.use('/users', dbMiddleware_1.dbInitMiddleware, (req, res) => {
+// app.use('/users',dbInitMiddleware,  (req: Request, res: Response) => {
+app.use('/users', (req, res) => {
+    console.log('users route fetched...');
     res.json({
         success: true,
         message: 'fetch succeded',
@@ -140,13 +141,13 @@ app.use('/users', dbMiddleware_1.dbInitMiddleware, (req, res) => {
     });
 });
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
-app.use('/', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs, {
-    explorer: true,
-    customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
-}));
-app.get("/api-docs/", (req, res) => {
-    res.redirect("/");
-});
+// app.use('/',swaggerUi.serve,swaggerUi.setup(specs, {
+//     explorer: true,
+//     customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
+//   }));
+// app.get("/api-docs/", (req: Request, res: Response) => {
+//     res.redirect("/");
+// });
 // app.use(
 //     "/swagger-assets",
 //     express.static(path.join(__dirname, "node_modules", "swagger-ui-dist"))
@@ -164,6 +165,7 @@ app.get("/api-docs/", (req, res) => {
 //     "/api-docs",
 //     express.static(path.join(__dirname, "..", "node_modules", "swagger-ui-dist"))
 //   );  
+app.use('/api-docs', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs));
 app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swagger_1.specs);
