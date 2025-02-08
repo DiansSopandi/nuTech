@@ -133,7 +133,10 @@ if (require.main === module) {
     });
 }
 app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
-app.use('/', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs));
+// app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
+app.use('/', swagger_1.swaggerUi.serve, (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield swagger_1.swaggerUi.generateHTML(swagger_1.specs));
+}));
 app.get("/api-docs/", (req, res) => {
     res.redirect("/");
 });
@@ -158,5 +161,8 @@ app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swagger_1.specs);
 });
-exports.default = app;
+// export default app;
+exports.default = (req, res) => {
+    app(req, res);
+};
 //# sourceMappingURL=index.js.map

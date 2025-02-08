@@ -1,3 +1,4 @@
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import express, { Request, Response } from "express";
 import { specs, swaggerUi  } from "./swagger"
 import 'reflect-metadata';
@@ -141,7 +142,10 @@ if( require.main === module ){
 
 app.use('/users',dbInitMiddleware,  userRoutes);
 
-app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
+// app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
+app.use('/',swaggerUi.serve,async (_req: Request, res: Response) => {
+    res.send(await swaggerUi.generateHTML(specs));
+  });
 app.get("/api-docs/", (req, res) => {
     res.redirect("/");
   });
@@ -171,4 +175,7 @@ app.get('/api-docs.json', (req : Request, res : Response) => {
     res.send(specs)
  });
 
-export default app;
+// export default app;
+export default (req: VercelRequest, res: VercelResponse) => {
+    app(req, res);
+  };
