@@ -91,7 +91,8 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 // main();
 /** Routes */
 app.get('/', (req, res) => {
-    res.send("initialize root");
+    // res.send("initialize root");
+    res.redirect("/api-docs");
 });
 // app.get('/', dbInitMiddleware, userRoutes);
 app.use('/api-docs', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs));

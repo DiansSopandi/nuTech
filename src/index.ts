@@ -89,7 +89,8 @@ const main = async () => {
 
 /** Routes */
 app.get('/', (req : Request,res: Response) => {
-    res.send("initialize root");
+    // res.send("initialize root");
+    res.redirect("/api-docs");
 });
 
 // app.get('/', dbInitMiddleware, userRoutes);
