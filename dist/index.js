@@ -13,7 +13,6 @@ const cors_1 = __importDefault(require("cors"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const dataSource_1 = require("./utils/dataSource");
 const dbMiddleware_1 = require("./middlewares/dbMiddleware");
-const path_1 = __importDefault(require("path"));
 /* Configuration */
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -83,11 +82,11 @@ const main = async () => {
 /** Server */
 // main();
 /** Routes */
-app.get('/', (req, res) => {
-    console.log('initialized root route fetched...');
-    res.send("initialize root route");
-    // res.redirect("/api-docs");
-});
+// app.get('/',  (req : Request,res: Response) => {
+//     console.log('initialized root route fetched...');    
+//     res.send("initialize root route");
+// res.redirect("/api-docs");
+// });
 // app.use('/users',dbInitMiddleware,  userRoutes);
 // app.get('/', dbInitMiddleware, userRoutes);
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs));
@@ -145,12 +144,16 @@ app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
 // app.get("/api-docs/", (req: Request, res: Response) => {
 //     res.redirect("/");
 // });
-app.use("/swagger-assets", express_1.default.static(path_1.default.join(__dirname, "node_modules", "swagger-ui-express")));
+// app.use(
+//     "/swagger-assets",
+//     express.static(path.join(__dirname, "node_modules", "swagger-ui-express"))
+//   );
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
 //     customCssUrl:
 //       "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
 //   }));
-app.use('/api-docs', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs, {
+// app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs,{
+app.use('/', swagger_1.swaggerUi.serve, swagger_1.swaggerUi.setup(swagger_1.specs, {
     customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
     customJs: [
         "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js",

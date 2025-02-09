@@ -91,11 +91,11 @@ const main = async () => {
 // main();
 
 /** Routes */
-app.get('/',  (req : Request,res: Response) => {
-    console.log('initialized root route fetched...');    
-    res.send("initialize root route");
+// app.get('/',  (req : Request,res: Response) => {
+//     console.log('initialized root route fetched...');    
+//     res.send("initialize root route");
     // res.redirect("/api-docs");
-});
+// });
 
 // app.use('/users',dbInitMiddleware,  userRoutes);
 
@@ -164,17 +164,18 @@ app.use('/users',dbInitMiddleware,  userRoutes);
 //     res.redirect("/");
 // });
 
-app.use(
-    "/swagger-assets",
-    express.static(path.join(__dirname, "node_modules", "swagger-ui-express"))
-  );
+// app.use(
+//     "/swagger-assets",
+//     express.static(path.join(__dirname, "node_modules", "swagger-ui-express"))
+//   );
 
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
 //     customCssUrl:
 //       "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
 //   }));
 
-app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs,{
+// app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs,{
+app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
     customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
     customJs:  [
         "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js",
