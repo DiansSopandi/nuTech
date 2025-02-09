@@ -25,7 +25,7 @@ const dbInitMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, f
     }
     catch (error) {
         console.error("❌ Database connection failed:", error);
-        res.status(500).json({ success: false, message: "Database connection failed" });
+        res.status(500).json({ success: false, message: `Database connection failed ${error}` });
     }
 });
 exports.dbInitMiddleware = dbInitMiddleware;
