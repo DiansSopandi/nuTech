@@ -9,7 +9,6 @@ require("reflect-metadata");
 const typeorm_1 = require("typeorm");
 dotenv_1.default.config();
 const isVercel = process.env.VERCEL === "1"; // Detect Vercel environment
-console.log(' ✅ in AppDataSource...');
 const postgresConfig = {
     // railway
     // username: process.env.DB_USERNAME,
@@ -24,6 +23,7 @@ const postgresConfig = {
     port: Number(process.env.DB_PORT),
     database: process.env.POSTGRES_DATABASE,
 };
+console.log('✅ in AppDataSource...(AppDataSource)');
 exports.AppDataSource = new typeorm_1.DataSource(Object.assign(Object.assign({}, postgresConfig), { type: 'postgres', synchronize: true, logging: false, ssl: { rejectUnauthorized: false }, 
     // ssl: isVercel ? { rejectUnauthorized: false } : false, // Important for Vercel DB
     entities: ['src/entities/**/*.entity.ts'], migrations: ['src/migrations/**/*.ts'], subscribers: ['src/subscribers/**/*.ts'] }));

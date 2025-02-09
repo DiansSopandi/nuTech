@@ -91,7 +91,7 @@ const main = async () => {
 // main();
 
 /** Routes */
-app.get('/', (req : Request,res: Response) => {
+app.get('/',dbInitMiddleware,  (req : Request,res: Response) => {
     console.log('initialized root route fetched...');    
     res.send("initialize root route");
     // res.redirect("/api-docs");
@@ -129,7 +129,7 @@ app.get('/', (req : Request,res: Response) => {
 const port = Number(process.env.PORT) || 3000;
 
 if( require.main === module ){
-    console.log('✅  pre-initialize database...');    
+    console.log('✅ pre-initialize database...(index.ts)');    
     initializeDatabase();
     app.listen(port, () => {
       console.log(`🚀 Server running on port ${port}`);

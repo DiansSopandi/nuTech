@@ -91,7 +91,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
 /** Server */
 // main();
 /** Routes */
-app.get('/', (req, res) => {
+app.get('/', dbMiddleware_1.dbInitMiddleware, (req, res) => {
     console.log('initialized root route fetched...');
     res.send("initialize root route");
     // res.redirect("/api-docs");
@@ -121,7 +121,7 @@ app.get('/', (req, res) => {
 // /** 🔹 Start Server */
 const port = Number(process.env.PORT) || 3000;
 if (require.main === module) {
-    console.log('✅  pre-initialize database...');
+    console.log('✅ pre-initialize database...(index.ts)');
     initializeDatabase();
     app.listen(port, () => {
         console.log(`🚀 Server running on port ${port}`);
