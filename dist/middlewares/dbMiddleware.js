@@ -14,11 +14,13 @@ const dataSource_1 = require("../utils/dataSource");
 /** Middleware to initialize the database before handling routes */
 const dbInitMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("✅ AppDataSource pre-initialized... (Middleware)");
         if (!dataSource_1.AppDataSource.isInitialized) {
-            console.log("✅ Database pre-connected (Middleware)");
+            console.log("✅ Database pre-connected... (Middleware)");
             yield dataSource_1.AppDataSource.initialize();
             console.log("✅ Database connected successfully (Middleware)");
         }
+        console.log("✅ PG already connected... (Middleware)");
         next(); // Proceed to the next route
     }
     catch (error) {

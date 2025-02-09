@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 dotenv.config();
 
 const isVercel = process.env.VERCEL === "1"; // Detect Vercel environment
+console.log(' ✅ in AppDataSource...');
 
 const postgresConfig = {
    // railway

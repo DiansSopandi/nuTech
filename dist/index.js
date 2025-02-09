@@ -34,6 +34,7 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 const initializeDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!dataSource_1.AppDataSource.isInitialized) {
+            console.log("✅ before initialize connection to Database...");
             yield dataSource_1.AppDataSource.initialize();
             console.log("✅ Database connected successfully");
         }
@@ -120,6 +121,7 @@ app.get('/', (req, res) => {
 // /** 🔹 Start Server */
 const port = Number(process.env.PORT) || 3000;
 if (require.main === module) {
+    console.log('✅  pre-initialize database...');
     initializeDatabase();
     app.listen(port, () => {
         console.log(`🚀 Server running on port ${port}`);

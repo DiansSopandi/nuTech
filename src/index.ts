@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 const initializeDatabase = async () => {
     try {
         if (!AppDataSource.isInitialized) {
+            console.log("✅ before initialize connection to Database...");
             await AppDataSource.initialize();
             console.log("✅ Database connected successfully");
         }
@@ -128,6 +129,7 @@ app.get('/', (req : Request,res: Response) => {
 const port = Number(process.env.PORT) || 3000;
 
 if( require.main === module ){
+    console.log('✅  pre-initialize database...');    
     initializeDatabase();
     app.listen(port, () => {
       console.log(`🚀 Server running on port ${port}`);
