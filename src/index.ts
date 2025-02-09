@@ -175,8 +175,11 @@ app.use(
 //   }));
 
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs,{
-    customCssUrl: "/swagger-assets/swagger-ui.css",
-    customJs: ["/swagger-assets/swagger-ui-bundle.js", "/swagger-assets/swagger-ui-standalone-preset.js"],
+    customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
+    customJs:  [
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.js"
+    ],
   }));
 
 /** Serve Swagger UI assets explicitly */
