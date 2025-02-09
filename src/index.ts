@@ -164,27 +164,27 @@ app.use('/users',dbInitMiddleware,  userRoutes);
 //     res.redirect("/");
 // });
 
-// app.use(
-//     "/swagger-assets",
-//     express.static(path.join(__dirname, "node_modules", "swagger-ui-dist"))
-//   );
+app.use(
+    "/swagger-assets",
+    express.static(path.join(__dirname, "node_modules", "swagger-ui-express"))
+  );
 
 // app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
 //     customCssUrl:
 //       "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.css",
 //   }));
 
-// app.use('/',swaggerUi.serve,swaggerUi.setup(specs,{
-//     customCssUrl: "/swagger-assets/swagger-ui.css",
-//     customJs: ["/swagger-assets/swagger-ui-bundle.js", "/swagger-assets/swagger-ui-standalone-preset.js"],
-//   }));
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs,{
+    customCssUrl: "/swagger-assets/swagger-ui.css",
+    customJs: ["/swagger-assets/swagger-ui-bundle.js", "/swagger-assets/swagger-ui-standalone-preset.js"],
+  }));
 
 /** Serve Swagger UI assets explicitly */
 // app.use(
 //     "/api-docs",
 //     express.static(path.join(__dirname, "..", "node_modules", "swagger-ui-dist"))
 //   );  
-app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
+// app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(specs));
 app.get('/api-docs.json', (req : Request, res : Response) => {
     res.setHeader('Content-Type', 'application/json')
     res.send(specs)
