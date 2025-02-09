@@ -8,6 +8,7 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const user_entity_1 = require("../entities/user.entity");
 const utils_1 = require("../utils");
 class UserService {
+    static userRepository = utils_1.AppDataSource.getRepository(user_entity_1.User);
     static async create(payload) {
         if (!payload.password) {
             throw new Error("Password is required");
@@ -35,5 +36,4 @@ class UserService {
     }
 }
 exports.UserService = UserService;
-UserService.userRepository = utils_1.AppDataSource.getRepository(user_entity_1.User);
 //# sourceMappingURL=UserService.js.map

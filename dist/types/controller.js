@@ -1,7 +1,6 @@
 "use strict";
 // import { Request, Response } from 'express';
 // import { Query, Send } from "express-serve-static-core";
-Object.defineProperty(exports, "__esModule", { value: true });
 // export type Status = 'success' | 'error' | 'fail'
 // interface ResBody {
 //    status?: Status;

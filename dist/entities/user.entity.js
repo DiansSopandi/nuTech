@@ -18,10 +18,11 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const crypto_1 = __importDefault(require("crypto"));
 const base_entity_1 = __importDefault(require("./base.entity"));
 let User = class User extends base_entity_1.default {
-    constructor() {
-        super(...arguments);
-        this._isPasswordModified = false;
-    }
+    email;
+    password;
+    firstname;
+    lastname;
+    _isPasswordModified = false;
     async hashPassword(next) {
         // if (this._isPasswordModified ) return next();
         if (!this._isPasswordModified) {

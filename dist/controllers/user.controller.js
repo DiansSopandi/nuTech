@@ -2,7 +2,6 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -10,6 +9,23 @@ const UserService_1 = require("../services/UserService");
 const user_entity_1 = require("../entities/user.entity");
 const utils_1 = require("../utils");
 class UserController {
+    static cookiesOptions = {
+        httpOnly: true,
+        sameSite: "lax",
+        ...(process.env.NODE_ENV === "production" && {
+            secure: true,
+        }),
+    };
+    static accessTokenCookieOptions = {
+        ...this.cookiesOptions,
+        expires: new Date(Date.now() + (0, utils_1.getConfig)("accessTokenExpiresIn") * 60 * 1000),
+        maxAge: (0, utils_1.getConfig)("accessTokenExpiresIn") * 60 * 1000,
+    };
+    static refreshTokenCookieOptions = {
+        ...this.cookiesOptions,
+        expires: new Date(Date.now() + (0, utils_1.getConfig)("refreshTokenExpiresIn") * 60 * 1000),
+        maxAge: (0, utils_1.getConfig)("refreshTokenExpiresIn") * 60 * 1000,
+    };
     static async register(req, res, next) {
         try {
             let { firstname, lastname, email, password } = req.body;
@@ -54,10 +70,10 @@ class UserController {
                 });
             }
             const { access_token, refresh_token } = await UserService_1.UserService.signTokens(user);
-            res.cookie("access_token", access_token, _a.accessTokenCookieOptions);
-            res.cookie("refresh_token", refresh_token, _a.refreshTokenCookieOptions);
+            res.cookie("access_token", access_token, UserController.accessTokenCookieOptions);
+            res.cookie("refresh_token", refresh_token, UserController.refreshTokenCookieOptions);
             res.cookie("logged_in", true, {
-                ..._a.accessTokenCookieOptions,
+                ...UserController.accessTokenCookieOptions,
                 httpOnly: false,
             });
             res.status(200).json({
@@ -109,22 +125,4 @@ class UserController {
     }
 }
 exports.UserController = UserController;
-_a = UserController;
-UserController.cookiesOptions = {
-    httpOnly: true,
-    sameSite: "lax",
-    ...(process.env.NODE_ENV === "production" && {
-        secure: true,
-    }),
-};
-UserController.accessTokenCookieOptions = {
-    ..._a.cookiesOptions,
-    expires: new Date(Date.now() + (0, utils_1.getConfig)("accessTokenExpiresIn") * 60 * 1000),
-    maxAge: (0, utils_1.getConfig)("accessTokenExpiresIn") * 60 * 1000,
-};
-UserController.refreshTokenCookieOptions = {
-    ..._a.cookiesOptions,
-    expires: new Date(Date.now() + (0, utils_1.getConfig)("refreshTokenExpiresIn") * 60 * 1000),
-    maxAge: (0, utils_1.getConfig)("refreshTokenExpiresIn") * 60 * 1000,
-};
 //# sourceMappingURL=user.controller.js.map

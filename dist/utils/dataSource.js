@@ -31,7 +31,8 @@ exports.AppDataSource = new typeorm_1.DataSource({
     logging: false,
     ssl: { rejectUnauthorized: false }, // Ensure SSL is enabled
     // ssl: isVercel ? { rejectUnauthorized: false } : false, // Important for Vercel DB
-    entities: ['src/entities/**/*.entity.ts'],
+    // entities: ['src/entities/**/*.entity.ts'],
+    entities: [isVercel ? 'dist/entities/**/*.entity.js' : 'src/entities/**/*.entity.ts'],
     migrations: ['src/migrations/**/*.ts'],
     subscribers: ['src/subscribers/**/*.ts'],
 });
