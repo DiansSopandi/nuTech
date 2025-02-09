@@ -82,7 +82,7 @@ const main = async () => {
 /** Server */
 // main();
 /** Routes */
-app.get('/', dbMiddleware_1.dbInitMiddleware, (req, res) => {
+app.get('/', (req, res) => {
     console.log('initialized root route fetched...');
     res.send("initialize root route");
     // res.redirect("/api-docs");
@@ -166,8 +166,8 @@ app.get('/api-docs.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swagger_1.specs);
 });
-// export default app;
-exports.default = (req, res) => {
-    app(req, res);
-};
+exports.default = app;
+// export default (req: VercelRequest, res: VercelResponse) => {
+//     app(req, res);
+//   };
 //# sourceMappingURL=index.js.map

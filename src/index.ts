@@ -91,7 +91,7 @@ const main = async () => {
 // main();
 
 /** Routes */
-app.get('/',dbInitMiddleware,  (req : Request,res: Response) => {
+app.get('/',  (req : Request,res: Response) => {
     console.log('initialized root route fetched...');    
     res.send("initialize root route");
     // res.redirect("/api-docs");
@@ -190,7 +190,7 @@ app.get('/api-docs.json', (req : Request, res : Response) => {
     res.send(specs)
  });
 
-// export default app;
-export default (req: VercelRequest, res: VercelResponse) => {
-    app(req, res);
-  };
+export default app;
+// export default (req: VercelRequest, res: VercelResponse) => {
+//     app(req, res);
+//   };
