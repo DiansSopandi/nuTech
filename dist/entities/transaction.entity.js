@@ -1,5 +1,6 @@
 "use strict";
 // import { BaseEntity, Column, Entity } from "typeorm";
+Object.defineProperty(exports, "__esModule", { value: true });
 // @Entity('transactions')
 // export class Transaction extends BaseEntity {
 //     @Column({type: 'uuid'})

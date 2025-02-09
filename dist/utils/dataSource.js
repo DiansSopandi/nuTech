@@ -24,7 +24,15 @@ const postgresConfig = {
     database: process.env.POSTGRES_DATABASE,
 };
 console.log('✅ in AppDataSource...(AppDataSource)');
-exports.AppDataSource = new typeorm_1.DataSource(Object.assign(Object.assign({}, postgresConfig), { type: 'postgres', synchronize: true, logging: false, ssl: { rejectUnauthorized: false }, 
+exports.AppDataSource = new typeorm_1.DataSource({
+    ...postgresConfig,
+    type: 'postgres',
+    synchronize: true,
+    logging: false,
+    ssl: { rejectUnauthorized: false }, // Ensure SSL is enabled
     // ssl: isVercel ? { rejectUnauthorized: false } : false, // Important for Vercel DB
-    entities: ['src/entities/**/*.entity.ts'], migrations: ['src/migrations/**/*.ts'], subscribers: ['src/subscribers/**/*.ts'] }));
+    entities: ['src/entities/**/*.entity.ts'],
+    migrations: ['src/migrations/**/*.ts'],
+    subscribers: ['src/subscribers/**/*.ts'],
+});
 //# sourceMappingURL=dataSource.js.map

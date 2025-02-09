@@ -8,7 +8,12 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("./config");
 const signJwt = (payload, keyName, options) => {
     const privateKey = Buffer.from((0, config_1.getConfig)(keyName), 'base64').toString('ascii');
-    return jsonwebtoken_1.default.sign(payload, privateKey, Object.assign(Object.assign({}, (options && options)), { issuer: 'nuTech', algorithm: 'HS256' }));
+    return jsonwebtoken_1.default.sign(payload, privateKey, {
+        ...(options && options),
+        issuer: 'nuTech',
+        algorithm: 'HS256',
+        //  algorithm: 'RS256',
+    });
 };
 exports.signJwt = signJwt;
 //# sourceMappingURL=jwt.js.map

@@ -8,15 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -31,16 +22,14 @@ let User = class User extends base_entity_1.default {
         super(...arguments);
         this._isPasswordModified = false;
     }
-    hashPassword(next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            // if (this._isPasswordModified ) return next();
-            if (!this._isPasswordModified) {
-                const salt = yield bcryptjs_1.default.genSalt(12);
-                this.password = yield bcryptjs_1.default.hash(this.password, salt);
-                this._isPasswordModified = true;
-                // next();
-            }
-        });
+    async hashPassword(next) {
+        // if (this._isPasswordModified ) return next();
+        if (!this._isPasswordModified) {
+            const salt = await bcryptjs_1.default.genSalt(12);
+            this.password = await bcryptjs_1.default.hash(this.password, salt);
+            this._isPasswordModified = true;
+            // next();
+        }
     }
     //     setPassword(value: string) {
     //       this._isPasswordModified = true;
@@ -49,10 +38,8 @@ let User = class User extends base_entity_1.default {
     //     getPassword(): string {
     //       return this.password;
     //   }    
-    static comparePasswords(candidatePassword, hashedPassword) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield bcryptjs_1.default.compare(candidatePassword, hashedPassword);
-        });
+    static async comparePasswords(candidatePassword, hashedPassword) {
+        return await bcryptjs_1.default.compare(candidatePassword, hashedPassword);
     }
     static createVerificationCode() {
         const verificationCode = crypto_1.default.randomBytes(32).toString('hex');
@@ -63,7 +50,7 @@ let User = class User extends base_entity_1.default {
         return { verificationCode, hashedVerificationCode };
     }
     toJSON() {
-        return Object.assign(Object.assign({}, this), { password: undefined, verificationCode: undefined });
+        return { ...this, password: undefined, verificationCode: undefined };
     }
 };
 exports.User = User;
