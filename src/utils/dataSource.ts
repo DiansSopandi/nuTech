@@ -22,8 +22,6 @@ const postgresConfig = {
 	database: process.env.POSTGRES_DATABASE,
 };
 
-console.log('✅ in AppDataSource...(AppDataSource)');
-
 export const AppDataSource = new DataSource({
    // ...postgresConfig,
    url: process.env.DATABASE_URL, // Use connection pooling
