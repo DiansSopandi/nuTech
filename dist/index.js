@@ -12,7 +12,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
 const dataSource_1 = require("./utils/dataSource");
-const dbMiddleware_1 = require("./middlewares/dbMiddleware");
 /* Configuration */
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -126,7 +125,8 @@ if (require.main === module) {
         }
     });
 }
-app.use('/users', dbMiddleware_1.dbInitMiddleware, user_routes_1.default);
+app.use('/users', user_routes_1.default);
+// app.use('/users',dbInitMiddleware,  userRoutes);
 // app.use('/users',dbInitMiddleware,  (req: Request, res: Response) => {
 // app.use('/users',  (req: Request, res: Response) => {
 //     console.log('users route fetched...');

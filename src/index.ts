@@ -143,7 +143,8 @@ if( require.main === module ){
     });
 }
 
-app.use('/users',dbInitMiddleware,  userRoutes);
+app.use('/users',  userRoutes);
+// app.use('/users',dbInitMiddleware,  userRoutes);
 // app.use('/users',dbInitMiddleware,  (req: Request, res: Response) => {
 // app.use('/users',  (req: Request, res: Response) => {
 //     console.log('users route fetched...');
