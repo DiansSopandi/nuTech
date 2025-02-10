@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { specs, swaggerUi  } from "./swagger"
 import 'reflect-metadata';
 import bodyParser from "body-parser";
@@ -39,10 +39,10 @@ const initializeDatabase = async () => {
 };
 
 /** Middleware to Ensure Database is Initialized */
-// app.use(async (req: Request, res: Response, next: NextFunction) => {
-//     await initializeDatabase();
-//     next();
-// });
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+    await initializeDatabase();
+    next();
+});
 
 const main = async () => {
     try {        
@@ -129,8 +129,8 @@ const main = async () => {
 const port = Number(process.env.PORT) || 3000;
 
 if( require.main === module ){
-    console.log('✅ pre-initialize database...(index.ts)');    
-    initializeDatabase();
+    // console.log('✅ pre-initialize database...(index.ts)');    
+    // initializeDatabase();
     app.listen(port, () => {
       console.log(`🚀 Server running on port ${port}`);
     }).on("error",(err: any)=>{

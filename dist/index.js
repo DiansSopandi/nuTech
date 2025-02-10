@@ -35,10 +35,10 @@ const initializeDatabase = async () => {
     }
 };
 /** Middleware to Ensure Database is Initialized */
-// app.use(async (req: Request, res: Response, next: NextFunction) => {
-//     await initializeDatabase();
-//     next();
-// });
+app.use(async (req, res, next) => {
+    await initializeDatabase();
+    next();
+});
 const main = async () => {
     try {
         await dataSource_1.AppDataSource.initialize()
@@ -111,8 +111,8 @@ const main = async () => {
 // /** 🔹 Start Server */
 const port = Number(process.env.PORT) || 3000;
 if (require.main === module) {
-    console.log('✅ pre-initialize database...(index.ts)');
-    initializeDatabase();
+    // console.log('✅ pre-initialize database...(index.ts)');    
+    // initializeDatabase();
     app.listen(port, () => {
         console.log(`🚀 Server running on port ${port}`);
     }).on("error", (err) => {

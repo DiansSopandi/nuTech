@@ -25,7 +25,8 @@ const postgresConfig = {
 };
 console.log('✅ in AppDataSource...(AppDataSource)');
 exports.AppDataSource = new typeorm_1.DataSource({
-    ...postgresConfig,
+    // ...postgresConfig,
+    url: process.env.DATABASE_URL, // Use connection pooling
     type: 'postgres',
     synchronize: true,
     logging: false,
@@ -35,5 +36,9 @@ exports.AppDataSource = new typeorm_1.DataSource({
     entities: [isVercel ? 'dist/entities/**/*.entity.js' : 'src/entities/**/*.entity.ts'],
     migrations: ['src/migrations/**/*.ts'],
     subscribers: ['src/subscribers/**/*.ts'],
+    extra: {
+        max: 5, // Limit connections in serverless environments
+        idleTimeoutMillis: 30000, // Close idle connections after 30 sec
+    },
 });
 //# sourceMappingURL=dataSource.js.map
